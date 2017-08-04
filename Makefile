@@ -2,14 +2,6 @@
 # the .PHONY: declarations tell make that rule is not a file, just the name of a rule
 
 
-# Check for root
-.PHONY: amroot
-amroot:
-ifneq ($(EUID),0)
-	@echo "Please run as root user"
-	@exit 1
-endif
-
 
 # tells curl where to look for certificates
 .PHONY: curlrc
@@ -22,7 +14,7 @@ docker: docker_install
 
 
 .PHONY: docker_install
-docker_install: curlrc amroot
+docker_install: curlrc
 		sudo apt-get update && \
 		sudo apt-get install apt-transport-https ca-certificates curl software-properties-common && \
 		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
